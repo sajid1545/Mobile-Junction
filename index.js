@@ -53,7 +53,7 @@ let displayPhones = (phones, dataList) => {
 						    Brand - ${phone.brand} 
 						</h5>
 						<h2 class="card-title text-danger fw-bolder">${phone.phone_name}</h2>
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+						<button type="button" onclick="loadPhoneDetails('${phone.slug}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 											See Details
   						</button>
 					</div>
@@ -72,3 +72,19 @@ document.getElementById('phone-field').addEventListener('keypress', function (e)
 		searchPhones(10);
 	}
 });
+
+let loadPhoneDetails = (phoneId) => {
+	let url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
+	fetch(url)
+		.then((response) => response.json())
+		.then((data) => displayPhoneDetails(data.data));
+};
+
+let displayPhoneDetails = (phones) => {
+	let phoneDetails = document.getElementById('phone-details');
+	let modalTitles = document.getElementById('modalTitle');
+	modalTitles.innerText = `${phones.name}`;
+	phoneDetails.innerHTML = `
+	<h5>Release Date : ${phones.releaseDate}</h5>
+	`;
+};
