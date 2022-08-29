@@ -21,7 +21,7 @@
 
 			<section class="text-center my-4">
 				<input type="text" id="phone-field" placeholder="iPhone" class="p-1 w-50 text-center" />
-				<button onclick="searchPhones()" class="btn btn-primary">Search</button>
+				<button onclick="searchPhones(10)" class="btn btn-primary">Search</button>
 			</section>
 			<div class="d-flex justify-content-center">
 				<div id="loading-spinner" class="spinner-grow text-primary " role="status">
@@ -36,12 +36,16 @@
 				<h3 class="text-center text-warning">Please try again</h3>
 			</div>
 
+
+
 			<section>
 				<div id="phone-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 text-center"></div>
 			</section>
-			<div id="no-found-message" class="mt-4">
-				<h3 class="text-warning">No Phone Found. Please try a new search</h3>
+			<!-- show All button -->
+			<div id="show-all" class="text-center mt-4 d-none">
+				<button class="btn btn-primary" id="show-all-btn">Show All</button>
 			</div>
+
 		</section>
 	</main>
 

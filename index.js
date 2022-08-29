@@ -1,24 +1,23 @@
-document.getElementById('no-found-message').style.display = 'none';
 document.getElementById('loading-spinner').style.display = 'none';
 
-let loadPhones = (search) => {
+let loadPhones = (search, dataList) => {
 	document.getElementById('loading-spinner').style.display = 'block';
 
 	let url = ` https://openapi.programming-hero.com/api/phones?search=${search}`;
 	fetch(url)
 		.then((res) => res.json())
-		.then((data) => displayPhones(data.data));
+		.then((data) => displayPhones(data.data, dataList));
 };
 
-let searchPhones = () => {
+let searchPhones = (dataList) => {
 	let inputField = document.getElementById('phone-field');
 	let text = inputField.value;
-	loadPhones(text);
+	loadPhones(text, dataList);
 };
 
 loadPhones('iphone');
 
-let displayPhones = (phones) => {
+let displayPhones = (phones, dataList) => {
 	document.getElementById('loading-spinner').style.display = 'none';
 
 	let phoneContainer = document.getElementById('phone-container');
@@ -30,6 +29,16 @@ let displayPhones = (phones) => {
 		errorMessage.classList.remove('d-none');
 	} else {
 		errorMessage.classList.add('d-none');
+	}
+
+	// display 10 phones
+
+	let showAll = document.getElementById('show-all');
+	if (dataList && phones.length > 10) {
+		phones = phones.slice(0, 10);
+		showAll.classList.remove('d-none');
+	} else {
+		showAll.classList.add('d-none');
 	}
 
 	phones.forEach((phone) => {
@@ -51,44 +60,6 @@ let displayPhones = (phones) => {
 	});
 };
 
-let loadPhoneDetails = (phoneId) => {
-	let url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
-	fetch(url)
-		.then((res) => res.json())
-		.then((data) => displayPhonesDetails(data.data));
-};
-
-let displayPhonesDetails = (phones) => {
-	let detailsContainer = document.getElementById('phone-details-container');
-	detailsContainer.classList.add('card');
-
-	detailsContainer.innerHTML = `
-	                <img src="${phones.image}" class="mx-auto d-block my-3" >
-	                <div class="card-body">
-	                    <h5 class="card-text">
-						    Brand - ${phones.brand}
-						</h5>
-	                    <h2 class="card-title text-danger fw-bolder">${phones.name}</h1>
-						<p class="text-primary fw-bolder fs-4">Specifications : </p>
-						<ul>
-						<li class="list-unstyled text-dark fw-bold">${phones.mainFeatures.chipSet}</li>
-						<li class="list-unstyled text-dark fw-bold">${phones.mainFeatures.displaySize}</li>
-						<li class="list-unstyled text-dark fw-bold">${phones.mainFeatures.memory}</li>
-						<li class="list-unstyled text-dark fw-bold">${phones.mainFeatures.storage}</li>
-						<li class="list-unstyled text-dark fw-bold">${
-							phones.others ? phones.others.GPS : 'No other features'
-						}</li>
-						<li class="list-unstyled text-dark fw-bold">${
-							phones.others ? phones.others.USB : 'No other features'
-						}</li>
-						
-						<li class="list-unstyled text-dark fw-bold">${
-							phones.others ? phones.others.WLAN : 'No other features'
-						}</li>
-						</ul>
-
-					</div>
-
-	`;
-	console.log(phones);
-};
+document.getElementById('show-all-btn').addEventListener('click', function () {
+	searchPhones();
+});
