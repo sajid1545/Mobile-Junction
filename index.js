@@ -53,7 +53,9 @@ let displayPhones = (phones, dataList) => {
 						    Brand - ${phone.brand} 
 						</h5>
 						<h2 class="card-title text-danger fw-bolder">${phone.phone_name}</h2>
-						
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+											See Details
+  						</button>
 					</div>
 		    </div>
         `;
