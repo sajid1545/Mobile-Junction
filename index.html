@@ -19,28 +19,33 @@
 	<main class="container my-3">
 		<section>
 
+			<!-- input field -->
+
 			<section class="text-center my-4">
 				<input type="text" id="phone-field" placeholder="iPhone" class="p-1 w-50 text-center" />
-				<button onclick="searchPhones(10)" class="btn btn-primary">Search</button>
+				<button onclick="searchPhones(10)" id="search-btn" class="btn btn-primary">Search</button>
 			</section>
+
+			<!-- Spinner -->
 			<div class="d-flex justify-content-center">
 				<div id="loading-spinner" class="spinner-grow text-primary " role="status">
 					<span class="visually-hidden">Loading...</span>
 				</div>
 			</div>
-			<section class="my-3">
-				<div id="phone-details-container" class="mx-auto text-center "></div>
-			</section>
+
+
+			<!-- Error message -->
 
 			<div id="error-message" class="mt-4 d-none">
 				<h3 class="text-center text-warning">Please try again</h3>
 			</div>
 
 
-
+			<!-- phone container -->
 			<section>
 				<div id="phone-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 text-center"></div>
 			</section>
+
 			<!-- show All button -->
 			<div id="show-all" class="text-center mt-4 d-none">
 				<button class="btn btn-primary" id="show-all-btn">Show All</button>

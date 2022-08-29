@@ -41,6 +41,7 @@ let displayPhones = (phones, dataList) => {
 		showAll.classList.add('d-none');
 	}
 
+	// display all phones
 	phones.forEach((phone) => {
 		let div = document.createElement('div');
 		div.classList.add('col');
@@ -62,4 +63,10 @@ let displayPhones = (phones, dataList) => {
 
 document.getElementById('show-all-btn').addEventListener('click', function () {
 	searchPhones();
+});
+
+document.getElementById('phone-field').addEventListener('keypress', function (e) {
+	if (e.key === 'Enter') {
+		searchPhones(10);
+	}
 });
