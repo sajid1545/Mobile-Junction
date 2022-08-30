@@ -1,8 +1,4 @@
-document.getElementById('loading-spinner').style.display = 'none';
-
 let loadPhones = (search, dataList) => {
-	document.getElementById('loading-spinner').style.display = 'block';
-
 	let url = ` https://openapi.programming-hero.com/api/phones?search=${search}`;
 	fetch(url)
 		.then((res) => res.json())
@@ -10,6 +6,8 @@ let loadPhones = (search, dataList) => {
 };
 
 let searchPhones = (dataList) => {
+	toggleLoader(true);
+
 	let inputField = document.getElementById('phone-field');
 	let text = inputField.value;
 	loadPhones(text, dataList);
@@ -18,15 +16,16 @@ let searchPhones = (dataList) => {
 loadPhones('iphone');
 
 let displayPhones = (phones, dataList) => {
-	document.getElementById('loading-spinner').style.display = 'none';
-
 	let phoneContainer = document.getElementById('phone-container');
 	phoneContainer.innerHTML = '';
+
+	let phoneAmount = document.getElementById('phone-amount');
 
 	// Error validation
 	let errorMessage = document.getElementById('error-message');
 	if (phones.length === 0) {
 		errorMessage.classList.remove('d-none');
+		phoneAmount.innerText = '';
 	} else {
 		errorMessage.classList.add('d-none');
 	}
@@ -60,7 +59,19 @@ let displayPhones = (phones, dataList) => {
 		    </div>
         `;
 		phoneContainer.appendChild(div);
+		phoneAmount.innerText = `Total Number of Phone  - ${phones.length}`;
 	});
+
+	toggleLoader(false);
+};
+
+let toggleLoader = (isLoading) => {
+	let loader = document.getElementById('loading-spinner');
+	if (isLoading) {
+		loader.classList.remove('d-none');
+	} else {
+		loader.classList.add('d-none');
+	}
 };
 
 document.getElementById('show-all-btn').addEventListener('click', function () {
